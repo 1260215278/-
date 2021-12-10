@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>多行表格合并与旭日图</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1, maximum-scale=1,user-scalable=no,minimal-ui"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+  </head>
+  <body>
+    <div class="panel">
+      <div id="main" style="width: 700px; height: 700px"></div>
+      <table class="table" id="table"></table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+    <script type="text/javascript">
+      var myChart = echarts.init(document.getElementById("main"));
+
+      //  渲染表格的数据模型 row是跨行的距离 col没啥意义 可以无视 display是否显示
+      var items = [
+        [
+          { row: 8, col: 1, display: true },
+          { row: 4, col: 1, display: true },
+          { row: 2, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+        ],
+        [
+          { row: 0, col: 0, display: false },
+          { row: 0, col: 0, display: false },
+          { row: 0, col: 0, display: false },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+        ],
+        [
+          { row: 0, col: 0, display: false },
+          { row: 0, col: 0, display: false },
+          { row: 2, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+        ],
+        [
+          { row: 0, col: 0, display: false },
+          { row: 0, col: 0, display: false },
+          { row: 0, col: 0, display: false },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+        ],
+        [
+          { row: 0, col: 0, display: false },
+          { row: 4, col: 1, display: true },
+          { row: 2, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+        ],
+        [
+          { row: 0, col: 0, display: false },
+          { row: 0, col: 0, display: false },
+          { row: 0, col: 1, display: false },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+        ],
+        [
+          { row: 0, col: 0, display: false },
+          { row: 0, col: 0, display: false },
+          { row: 2, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+        ],
+        [
+          { row: 0, col: 0, display: false },
+          { row: 0, col: 0, display: false },
+          { row: 0, col: 1, display: false },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+          { row: 1, col: 1, display: true },
+        ],
+      ];
+
+      // 驱动旭日图片和table表格的初始数据 如果是扁平的数据 请先处理成 树形结构
+      let tree = [
+        {
+          name: "Grandpa1",
+          children: [
+            {
+              name: "Uncle Leo2",
+              value: 15,
+              children: [
+                {
+                  name: "Cousin Jack",
+                  value: 2,
+                },
+                {
+                  name: "Cousin Mary3",
+                  value: 5,
+                  children: [
+                    {
+                      name: "Jackson4",
+                      value: 2,
+                      children: [
+                        {
+                          name: "Jackson5",
+                          value: 2,
+                          children: [
+                            {
+                              name: "Jackson6",
+                              value: 2,
+                              children: [
+                                {
+                                  name: "Jackson7",
+                                  value: 2,
+                                },
+                                {
+                                  name: "Jackson9",
+                                  value: 2,
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  name: "Cousin Ben",
+                  value: 4,
+                },
+              ],
+            },
+            {
+              name: "Father",
+              value: 10,
+              children: [
+                {
+                  name: "Me",
+                  value: 5,
+                },
+                {
+                  name: "Brother Peter",
+                  value: 1,
+                },
+                {
+                  name: "9999",
+                  value: 1,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "Nancy",
+          children: [
+            {
+              name: "Uncle Nike222",
+              children: [
+                {
+                  name: "Cousin Betty",
+                  value: 1,
+                },
+                {
+                  name: "Cousin Jenny",
+                  value: 2,
+                },
+              ],
+            },
+            {
+              name: "Uncle Nike",
+              children: [
+                {
+                  name: "呜呜呜",
+                  value: 1,
+                  children: [
+                    {
+                      name: "啊这",
+                      children: [
+                        {
+                          name: "这种",
+                          value: 1,
+                        },
+                        {
+                          name: "dd",
+                          value: 2,
+                        },
+                      ],
+                    },
+                  ],
+                },
+
+                {
+                  name: "Cousin Jenny",
+                  value: 2,
+                },
+              ],
+            },
+          ],
+        },
+      ];
+
+      // 指定图表的配置项和数据
+      var option = {
+        series: {
+          type: "sunburst",
+          data: tree,
+          radius: [0, "90%"],
+          label: {
+            rotate: "radial",
+          },
+        },
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+      var items = [];
+      // 这个是从父节点开始遍历
+      traverseArr = function (
+        datas,
+        callbalk,
+        parentobj = {},
+        parentList = [],
+        nodeId = 0
+      ) {
+        //遍历树  获取id数组 及父类
+        nodeId++;
+        // 防止引用传递
+        parentList = JSON.parse(JSON.stringify(parentList));
+        for (var i in datas) {
+          //  同一节点不需要再次添加
+          if (i == 0 && JSON.stringify(parentobj) !== "{}") {
+            parentList.push(parentobj);
+          }
+          callbalk(datas[i], i, parentobj, parentList, nodeId);
+          if (datas[i].children) {
+            this.traverseArr(
+              datas[i].children,
+              callbalk,
+              datas[i],
+              parentList,
+              nodeId
+            );
+          }
+        }
+      };
+
+      initTableData = function () {
+        //  找出最长路径作为最长列
+        // 赋值  记录当前节点位置  从每一个分支的当前节点开始   前面的td都是不需要显示 后面的数据才有意义
+
+        let maxIndex = 0;
+        let tabel = [];
+        traverseArr(tree, (item, index, parentobj) => {
+          //  这里rowspan 是 获取当前节点下 有多少 “末梢 ”
+          // 先执行一遍 我认为是很有必须要的 处理一些数据 及获取所有的row和col
+          if (!item.children) {
+            if (!parentobj.row) {
+              parentobj.row = 0;
+            }
+            item.row = 1;
+            item.display = true;
+            item.col = 1;
+          } else {
+            // 如果是节点
+            let nodeCenter = 0;
+            traverseArr(item.children, (d, i, p) => {
+              if (!d.children) {
+                nodeCenter++;
+              }
+            });
+            item.display = true;
+            item.col = 1;
+            item.row = nodeCenter;
+          }
+          item.nodeStartIndexVV = index;
+        });
+        traverseArr(tree, (item, index, parentobj, parentList, nodeId) => {
+          // 找到最长路径节点
+          if (nodeId > maxIndex) {
+            maxIndex = nodeId;
+          }
+
+          if (!item.children) {
+            if (index == 0) {
+              // 如果是每个分支路径下的第一条 需要添加之前的路径进去
+              //  当下标等于0的时候 去追溯上级 找到所有标记nodeStart的tree
+              // 找到第最后一个标记不为0的地方 然后返回那个位置之后的所有数据
+              // 因为这里的数据可能回事[ null,null,"父级","父级",“当前项”]
+              // 取到中间那一段
+              let reverseArr = JSON.parse(JSON.stringify(parentList));
+              let coordinate = 0;
+              reverseArr.forEach((v, k) => {
+                if (v.nodeStartIndexVV != 0) {
+                  coordinate = k;
+                }
+              });
+              let newarr = reverseArr;
+              if (coordinate) {
+                newarr = reverseArr.splice(coordinate, reverseArr.length - 1);
+              }
+              // 给数据填充
+              var arr = Array.from(
+                { length: nodeId - 1 - newarr.length },
+                (v, k) => {
+                  return { row: 0, col: 0, display: false };
+                }
+              );
+
+              tabel.push([...arr, ...newarr, item]);
+            } else {
+              // 如果是最后一级  那么前面的所有数据直接补空
+              var arr = Array.from({ length: parentList.length }, (v, k) => {
+                return { row: 0, col: 0, display: false };
+              });
+              tabel.push([...arr, item]);
+            }
+          }
+        });
+        items = [];
+
+        tabel.forEach((k, i) => {
+          if (k.length < maxIndex) {
+            // 补充单元格
+            var arr = Array.from({ length: maxIndex - k.length }, (v, k) => {
+              return { row: 1, col: 1, display: true, name: "/" };
+            });
+            k = [...k, ...arr];
+          }
+
+          items.push(k);
+        });
+      };
+
+      initTableData();
+      // 这份是vue渲染代码 可以直接抄答案
+      // <tr v-for="(tr, idx) in items" :key="idx">
+      //         <template v-for="(td, tdx) in tr">
+      //           <td
+      //             :key="tdx"
+      //             :rowspan="td.row"
+      //             v-if="td.display"
+      //             :colspan="td.col"
+      //           >
+      //             {{ td.name }}
+      //           </td>
+      //         </template>
+      //       </tr>
+
+      //  渲染表格dom
+      let tabelDom = document.getElementById("table");
+      let trString = "";
+      items.forEach((k) => {
+        let tdString = "";
+        k.forEach((z) => {
+          tdString =
+            tdString +
+            `<td  rowspan="${z.row}" colspan="${z.col}" class="${
+              z.display ? "" : "tdhide"
+            }">${z.name}</td>`;
+        });
+
+        trString = trString + `<tr>${tdString} </tr>`;
+      });
+      tabelDom.innerHTML = trString;
+    </script>
+  </body>
+
+  <style lang="scss" scoped>
+    .panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .table {
+      /* width: 100%; */
+      border-collapse: collapse;
+      border-radius: 0px;
+      border-left: 1px solid black;
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+    }
+    th {
+      border-right: 1px solid black;
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+    }
+
+    td {
+      min-width: 100px;
+      min-height: 20px;
+      text-align: center;
+      border-right: 1px solid black;
+      border-top: 1px solid black;
+    }
+    th:first-child {
+      border-left: 1px solid black;
+    }
+
+    tr > td:last-child {
+      border-right: none;
+    }
+    .tdhide {
+      display: none;
+    }
+  </style>
+</html>
